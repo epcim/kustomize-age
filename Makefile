@@ -28,6 +28,7 @@ kustomize-git-reset:
 	git -C "$(KUSTOMIZE_SRC)/.." rev-parse --verify kustomize-age && git -C "$(KUSTOMIZE_SRC)/.." checkout kustomize-age && git -C "$(KUSTOMIZE_SRC)/.." reset --hard $(KUSTOMIZE_AGE_SUPPORT_COMMIT)
 
 kustomize-binary: $(KUSTOMIZE_SRC) kustomize-git-reset
+	[[ -d $(CURDIR)/bin ]] || mkdir $(CURDIR)/bin
 	cd $(KUSTOMIZE_SRC); \
 	for platform in $(PLATFORMS); do \
 	  GOOS=$$(cut -d / -f1 <<<$$platform); \
